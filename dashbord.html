@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bank Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-r from-yellow-50 to-white flex items-center justify-center p-6">
+
+  <div class="bg-white/90 backdrop-blur-md shadow-xl rounded-2xl p-8 w-full max-w-lg border border-yellow-300">
+    <h1 class="text-2xl font-bold text-yellow-600 mb-6 text-center">Bank Dashboard</h1>
+    
+    <div class="mb-6 text-center">
+      <p class="text-gray-700 text-lg">Welcome, <span id="userName">User</span> </p>
+      <p class="text-xl font-bold text-yellow-700">Balance: ₹<span id="balance">1000</span></p>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mb-6">
+     
+      <div class="bg-yellow-100 p-4 rounded-lg shadow">
+        <h2 class="font-semibold mb-2">Deposit</h2>
+        <input type="number" id="depositAmount" placeholder="Enter amount"
+          class="w-full p-2 border rounded mb-2 focus:ring-2 focus:ring-yellow-500 focus:outline-none">
+        <button id="depositBtn" class="w-full bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600">Deposit</button>
+      </div>
+
+      <div class="bg-yellow-100 p-4 rounded-lg shadow">
+        <h2 class="font-semibold mb-2">Withdraw</h2>
+        <input type="number" id="withdrawAmount" placeholder="Enter amount"
+          class="w-full p-2 border rounded mb-2 focus:ring-2 focus:ring-yellow-500 focus:outline-none">
+        <button id="withdrawBtn" class="w-full bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600">Withdraw</button>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="text-lg font-semibold mb-2 text-yellow-600">Transaction History</h2>
+      <ul id="history" class="space-y-2 max-h-40 overflow-y-auto border p-3 rounded bg-gray-50 text-sm"></ul>
+    </div>
+  </div>
+
+   <button onclick="logout()" 
+          class="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-lg text-sm shadow hover:bg-red-600">
+    Logout
+  </button>
+
+
+  <script>
+    let currentBalance = 1000;
+
+    const balanceDisplay = document.getElementById('balance');
+    const depositInput = document.getElementById('depositAmount');
+    const withdrawInput = document.getElementById('withdrawAmount');
+    const depositBtn = document.getElementById('depositBtn');
+    const withdrawBtn = document.getElementById('withdrawBtn');
+    const history = document.getElementById('history');
+
+    function updateBalanceDisplay() {
+      balanceDisplay.textContent = currentBalance.toFixed(2);
+    }
+
+    function addHistory(action, amount) {
+      const li = document.createElement('li');
+      li.textContent = `${action}: ₹${amount}`;
+      li.className = action === "Deposit" ? "text-green-600" : "text-red-600";
+      history.prepend(li); 
+    }
+
+    depositBtn.addEventListener('click', () => {
+      const amount = parseFloat(depositInput.value);
+      if (!isNaN(amount) && amount > 0) {
+        currentBalance += amount;
+        updateBalanceDisplay();
+        addHistory("Deposit", amount);
+        depositInput.value = '';
+      } else {
+        alert('Please enter a valid deposit amount.');
+      }
+    });
+
+    withdrawBtn.addEventListener('click', () => {
+      const amount = parseFloat(withdrawInput.value);
+      if (!isNaN(amount) && amount > 0) {
+        if (currentBalance >= amount) {
+          currentBalance -= amount;
+          updateBalanceDisplay();
+          addHistory("Withdraw", amount);
+          withdrawInput.value = ''; 
+        } else {
+          alert('Insufficient funds for withdrawal.');
+        }
+      } else {
+        alert('Please enter a valid withdrawal amount.');
+      }
+    });
+
+    updateBalanceDisplay();
+    function logout() {
+ 
+  localStorage.removeItem("loggedInUser");
+  localStorage.removeItem("balance");
+  localStorage.removeItem("history");
+
+ 
+  window.location.href = "login.html"; 
+}
+
+
+  </script>
+</body>
+</html>

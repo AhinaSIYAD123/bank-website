@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gradient-to-br from-yellow-100 via-yellow-200 to-white min-h-screen flex items-center justify-center relative overflow-hidden">
+
+ 
+  <div class="absolute -top-16 -left-16 w-60 h-60 bg-yellow-300 rounded-full blur-3xl opacity-40"></div>
+  <div class="absolute bottom-0 right-0 w-72 h-72 bg-yellow-200 rounded-full blur-3xl opacity-30"></div>
+
+  
+  <div class="w-full max-w-md bg-white/90 backdrop-blur-lg p-10 rounded-2xl shadow-2xl border border-yellow-200 relative z-10">
+
+
+    <div class="flex justify-center mb-6">
+      <div class="w-20 h-20 bg-yellow-500 text-white flex items-center justify-center rounded-full shadow-lg text-3xl">
+        📝
+      </div>
+    </div>
+
+
+    <h1 class="text-3xl font-extrabold text-center text-yellow-600 mb-2">Create Account</h1>
+    <p class="text-center text-gray-500 mb-8 text-sm">Fill in your details to register</p>
+
+    
+    <form class="space-y-6">
+      
+  
+      <div class="relative z-0 w-full group">
+        <input type="text" id="floating_first_name" placeholder=" " required
+          class="block py-3 px-0 w-full text-sm text-gray-900 bg-transparent 
+                 border-0 border-b-2 border-yellow-400 focus:outline-none 
+                 focus:ring-0 focus:border-yellow-600 peer transition-all duration-300" />
+        <label for="floating_first_name"
+          class="absolute text-sm text-gray-500 duration-300 transform 
+                 -translate-y-6 scale-75 top-3 -z-10 origin-[0] 
+                 peer-focus:text-yellow-600 peer-placeholder-shown:scale-100 
+                 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 
+                 peer-focus:-translate-y-6">
+          First name</label>
+      </div>
+
+     
+      <div class="relative z-0 w-full group">
+        <input type="text" id="floating_account" placeholder=" " required
+          class="block py-3 px-0 w-full text-sm text-gray-900 bg-transparent 
+                 border-0 border-b-2 border-yellow-400 focus:outline-none 
+                 focus:ring-0 focus:border-yellow-600 peer transition-all duration-300" />
+        <label for="floating_account"
+          class="absolute text-sm text-gray-500 duration-300 transform 
+                 -translate-y-6 scale-75 top-3 -z-10 origin-[0] 
+                 peer-focus:text-yellow-600 peer-placeholder-shown:scale-100 
+                 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 
+                 peer-focus:-translate-y-6">
+          Account Number</label>
+      </div>
+
+      
+      <div class="relative z-0 w-full group">
+        <input type="password" id="floating_password" placeholder=" " required
+          class="block py-3 px-0 w-full text-sm text-gray-900 bg-transparent 
+                 border-0 border-b-2 border-yellow-400 focus:outline-none 
+                 focus:ring-0 focus:border-yellow-600 peer transition-all duration-300" />
+        <label for="floating_password"
+          class="absolute text-sm text-gray-500 duration-300 transform 
+                 -translate-y-6 scale-75 top-3 -z-10 origin-[0] 
+                 peer-focus:text-yellow-600 peer-placeholder-shown:scale-100 
+                 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 
+                 peer-focus:-translate-y-6">
+          Password</label>
+      </div>
+
+      <div class="relative z-0 w-full group">
+        <input type="password" id="floating_confirm_password" placeholder=" " required
+          class="block py-3 px-0 w-full text-sm text-gray-900 bg-transparent 
+                 border-0 border-b-2 border-yellow-400 focus:outline-none 
+                 focus:ring-0 focus:border-yellow-600 peer transition-all duration-300" />
+        <label for="floating_confirm_password"
+          class="absolute text-sm text-gray-500 duration-300 transform 
+                 -translate-y-6 scale-75 top-3 -z-10 origin-[0] 
+                 peer-focus:text-yellow-600 peer-placeholder-shown:scale-100 
+                 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 
+                 peer-focus:-translate-y-6">
+          Confirm Password</label>
+      </div>
+
+      <div class="text-center mt-8">
+        <button type="button" onclick="register()"
+          class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold 
+                 rounded-lg text-base px-5 py-3 transition-all duration-300 
+                 hover:scale-105 shadow-lg hover:shadow-xl">
+          Register
+        </button>
+      </div>
+
+    </form>
+
+ 
+    <p class="text-center text-gray-600 text-sm mt-6">
+      Already have an account? 
+      <a href="login.html" class="text-yellow-600 font-semibold hover:underline">Login</a>
+    </p>
+
+  </div>
+
+  <script>
+    function register() {
+      const firstName = document.getElementById("floating_first_name").value.trim();
+      const account = document.getElementById("floating_account").value.trim();
+      const password = document.getElementById("floating_password").value;
+      const confirmPassword = document.getElementById("floating_confirm_password").value;
+
+      if (!firstName || !account || !password || !confirmPassword) {
+        alert("Please fill the form");
+      } else if (password !== confirmPassword) {
+        alert("Passwords do not match");
+      } else {
+        const userDetails = { firstName, account, password };
+        localStorage.setItem("userData", JSON.stringify(userDetails));
+        alert("Register successful ✅");
+        window.location.href = "login.html"; 
+      }
+    }
+  </script>
+</body>
+</html>
